@@ -136,12 +136,12 @@ public class Recipe {
 
     public void setNote(Note note) {
         this.note = note;
+        note.setRecipe(this);
     }
 
     public void addIngredient(Ingredient ingredient){
         ingredient.setRecipe(this);
         ingredients.add(ingredient);
-
     }
 
     public Set<Category> getCategories() {
@@ -150,5 +150,6 @@ public class Recipe {
 
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
+
     }
 }
