@@ -1,6 +1,7 @@
 package dxy.springframework.adspringrecipeapp.domain;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * @author AD
@@ -21,7 +22,7 @@ public class Recipe {
     private String directions;
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "recipe")
-    private Ingredient ingredient;
+    private Set<Ingredient> ingredients;
 
     @Lob
     private Byte[] image;
@@ -104,12 +105,12 @@ public class Recipe {
         this.image = image;
     }
 
-    public Ingredient getIngredient() {
-        return ingredient;
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
     }
 
-    public void setIngredient(Ingredient ingredient) {
-        this.ingredient = ingredient;
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 
     public Difficulty getDifficulty() {
