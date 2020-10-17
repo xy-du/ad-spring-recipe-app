@@ -16,14 +16,22 @@ public class Ingredient {
     private String description;
     private BigDecimal amount;
 
-    //private UnitOfMeasure uom;
+    //EAGER here is the default behavior for OneToOne, but it's good for showing the intent
+    @OneToOne(fetch = FetchType.EAGER)
+    private UnitOfMeasure uom;
 
     @ManyToOne
     private Recipe recipe;
 
-    //EAGER here is the default behavior for OneToOne, but it's good for showing the intent
-    @OneToOne(fetch = FetchType.EAGER)
-    private UnitOfMeasure uom;
+    public Ingredient() {
+    }
+
+    public Ingredient(String description, BigDecimal amount, UnitOfMeasure uom, Recipe recipe) {
+        this.description = description;
+        this.amount = amount;
+        this.uom = uom;
+        this.recipe = recipe;
+    }
 
     public Long getId() {
         return id;

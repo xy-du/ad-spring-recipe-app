@@ -9,6 +9,6 @@ import java.util.Optional;
  * @author AD
  * @date 2020/10/17
  */
-public interface UnitOfMeasureReposity extends CrudRepository<UnitOfMeasure, Long> {
+public interface UnitOfMeasureRepository extends CrudRepository<UnitOfMeasure, Long> {
     Optional<UnitOfMeasure> findByDescription(String description);
 }

@@ -1,0 +1,13 @@
+package dxy.springframework.adspringrecipeapp.services;
+
+import dxy.springframework.adspringrecipeapp.domain.Recipe;
+
+import java.util.Set;
+
+/**
+ * @author AD
+ * @date 2020/10/17
+ */
+public interface RecipeService {
+    Set<Recipe> getRecipes();
+}
