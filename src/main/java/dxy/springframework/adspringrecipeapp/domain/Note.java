@@ -6,6 +6,7 @@ import javax.persistence.*;
  * @author AD
  * @date 2020/10/16
  */
+@Entity
 public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

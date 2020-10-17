@@ -7,6 +7,7 @@ import java.math.BigDecimal;
  * @author AD
  * @date 2020/10/16
  */
+@Entity
 public class Ingredient {
 
     @Id
