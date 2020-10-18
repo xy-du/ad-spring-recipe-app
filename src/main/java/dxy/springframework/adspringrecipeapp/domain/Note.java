@@ -1,6 +1,7 @@
 package dxy.springframework.adspringrecipeapp.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
  */
 @Data
 @Entity
+@EqualsAndHashCode(exclude = {"recipe"})
 public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

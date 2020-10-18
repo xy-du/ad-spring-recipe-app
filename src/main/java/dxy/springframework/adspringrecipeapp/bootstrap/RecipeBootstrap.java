@@ -7,6 +7,7 @@ import dxy.springframework.adspringrecipeapp.repositories.UnitOfMeasureRepositor
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class RecipeBootstrap implements CommandLineRunner {
     }
 
     @Override
+    @Transactional
     public void run(String... args) throws Exception {
         log.debug("bootstrap---RecipeBootStrap---run");
         recipeRepository.saveAll(getRecipes());
