@@ -1,6 +1,7 @@
 package dxy.springframework.adspringrecipeapp.controllers;
 
 import dxy.springframework.adspringrecipeapp.services.RecipeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @date 2020/10/13
  */
 @Controller
+@Slf4j
 public class indexController {
 
     private final RecipeService recipeService;
@@ -20,6 +22,7 @@ public class indexController {
 
     @RequestMapping({"", "/", "/index", "index.html"})
     public String getIndexPage(Model model) {
+        log.debug("controller---indexController---getIndexPage");
         model.addAttribute("recipes",recipeService.getRecipes());
         return "index";
     }

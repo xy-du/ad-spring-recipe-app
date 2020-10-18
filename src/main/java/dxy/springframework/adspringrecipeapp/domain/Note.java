@@ -1,11 +1,14 @@
 package dxy.springframework.adspringrecipeapp.domain;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 /**
  * @author AD
  * @date 2020/10/16
  */
+@Data
 @Entity
 public class Note {
     @Id
@@ -18,27 +21,4 @@ public class Note {
     @Lob
     private String recipeNote;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Recipe getRecipe() {
-        return recipe;
-    }
-
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
-    }
-
-    public String getRecipeNote() {
-        return recipeNote;
-    }
-
-    public void setRecipeNote(String recipeNote) {
-        this.recipeNote = recipeNote;
-    }
 }

@@ -4,6 +4,7 @@ import dxy.springframework.adspringrecipeapp.domain.*;
 import dxy.springframework.adspringrecipeapp.repositories.CategoryRepository;
 import dxy.springframework.adspringrecipeapp.repositories.RecipeRepository;
 import dxy.springframework.adspringrecipeapp.repositories.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,7 @@ import java.util.Optional;
  */
 
 @Component
+@Slf4j
 public class RecipeBootstrap implements CommandLineRunner {
 
     private final RecipeRepository recipeRepository;
@@ -32,6 +34,7 @@ public class RecipeBootstrap implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        log.debug("bootstrap---RecipeBootStrap---run");
         recipeRepository.saveAll(getRecipes());
     }
 
