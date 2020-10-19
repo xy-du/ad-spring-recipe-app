@@ -19,6 +19,7 @@ import static org.mockito.Mockito.*;
  */
 public class RecipeServiceImplTest {
 
+
     private RecipeService recipeService;
 
     @Mock
