@@ -1,11 +1,16 @@
 package dxy.springframework.adspringrecipeapp.controllers;
 
+import dxy.springframework.adspringrecipeapp.domain.Recipe;
 import dxy.springframework.adspringrecipeapp.services.RecipeService;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.ui.Model;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
@@ -32,11 +37,32 @@ public class IndexControllerTest {
 
     @Test
     public void getIndexPage() {
-        assertEquals("index",indexController.getIndexPage(model));
+        //given
+        Recipe recipe1=new Recipe();
+        recipe1.setId(1L);
+        Recipe recipe2=new Recipe();
+        recipe2.setId(2L);
+
+        Set<Recipe> recipes=new HashSet<>();
+        recipes.add(recipe1);
+        recipes.add(recipe2);
+
+        when(recipeService.getRecipes()).thenReturn(recipes);
+
+        ArgumentCaptor<Set<Recipe>> argumentCaptor=ArgumentCaptor.forClass(Set.class);
+
+        //when
+        String resString=indexController.getIndexPage(model);
+
+        //then
+        assertEquals("index",resString);
 
         verify(recipeService,times(1)).getRecipes();
-
+//        the following line is not using the method right.
 //        verify(model,times(1)).addAttribute("recipes",recipeService.getRecipes());
-        verify(model,times(1)).addAttribute(eq("recipes"),anySet());
+        verify(model,times(1)).addAttribute(eq("recipes"),argumentCaptor.capture());
+
+        Set<Recipe> capturedArg=argumentCaptor.getValue();
+        assertEquals(2,capturedArg.size());
     }
 }
