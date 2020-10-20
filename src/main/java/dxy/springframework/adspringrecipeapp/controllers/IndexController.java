@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @Slf4j
-public class indexController {
+public class IndexController {
 
     private final RecipeService recipeService;
 
-    public indexController(RecipeService recipeService) {
+    public IndexController(RecipeService recipeService) {
         this.recipeService = recipeService;
     }
 
