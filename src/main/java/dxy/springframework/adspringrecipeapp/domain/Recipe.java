@@ -27,8 +27,8 @@ public class Recipe {
     @Lob
     private String directions;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "recipe")
-    private Set<Ingredient> ingredients=new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    private Set<Ingredient> ingredients = new HashSet<>();
 
     @Lob
     private Byte[] image;
@@ -41,19 +41,26 @@ public class Recipe {
 
     @ManyToMany
     @JoinTable(name = "recipe_category",
-        joinColumns = @JoinColumn(name = "recipe_id"),
-        inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> categories=new HashSet<>();
+            joinColumns = @JoinColumn(name = "recipe_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private Set<Category> categories = new HashSet<>();
 
     //can not let lombok to overwrite this method, it's "special"
     public void setNote(Note note) {
-        this.note = note;
-        note.setRecipe(this);
+        if (note != null) {
+            this.note = note;
+            note.setRecipe(this);
+        }
     }
 
     //can not let lombok to overwrite this method, it's "special"
-    public void addIngredient(Ingredient ingredient){
+    public void addIngredient(Ingredient ingredient) {
         ingredient.setRecipe(this);
         ingredients.add(ingredient);
+    }
+
+    public void addCategory(Category category){
+        categories.add(category);
+        category.getRecipes().add(this);
     }
 }

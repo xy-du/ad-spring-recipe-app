@@ -1,5 +1,7 @@
 package dxy.springframework.adspringrecipeapp.services;
 
+import dxy.springframework.adspringrecipeapp.converters.RecipeCommandToRecipe;
+import dxy.springframework.adspringrecipeapp.converters.RecipeToRecipeCommand;
 import dxy.springframework.adspringrecipeapp.domain.Recipe;
 import dxy.springframework.adspringrecipeapp.repositories.RecipeRepository;
 import org.junit.Before;
@@ -27,10 +29,16 @@ public class RecipeServiceImplTest {
     @Mock
     private RecipeRepository recipeRepository;
 
+    @Mock
+    RecipeToRecipeCommand recipeToRecipeCommand;
+
+    @Mock
+    RecipeCommandToRecipe recipeCommandToRecipe;
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        recipeService = new RecipeServiceImpl(recipeRepository);
+        recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
 
     @Test

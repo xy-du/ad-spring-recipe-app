@@ -1,5 +1,6 @@
 package dxy.springframework.adspringrecipeapp.services;
 
+import dxy.springframework.adspringrecipeapp.commands.RecipeCommand;
 import dxy.springframework.adspringrecipeapp.domain.Recipe;
 
 import java.util.Set;
@@ -11,4 +12,6 @@ import java.util.Set;
 public interface RecipeService {
     Set<Recipe> getRecipes();
     Recipe findById(Long id);
+
+    RecipeCommand saveRecipeCommand(RecipeCommand command);
 }
