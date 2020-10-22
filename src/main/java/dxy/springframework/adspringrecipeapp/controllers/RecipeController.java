@@ -1,11 +1,11 @@
 package dxy.springframework.adspringrecipeapp.controllers;
 
+import dxy.springframework.adspringrecipeapp.commands.RecipeCommand;
 import dxy.springframework.adspringrecipeapp.domain.Recipe;
 import dxy.springframework.adspringrecipeapp.services.RecipeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author AD
@@ -22,11 +22,23 @@ public class RecipeController {
 
 
     @RequestMapping("/recipe/show/{id}")
-    public String getRecipeById(@PathVariable String id, Model model){
-        Long rid=new Long(id);
-        Recipe recipe=recipeService.findById(rid);
-        model.addAttribute("recipe",recipe);
+    public String getRecipeById(@PathVariable String id, Model model) {
+        Long rid = new Long(id);
+        Recipe recipe = recipeService.findById(rid);
+        model.addAttribute("recipe", recipe);
         return "recipe/show";
+    }
+
+    @GetMapping("/recipe/new")
+    public String newRecipe(Model model){
+        model.addAttribute("recipe",new RecipeCommand());
+        return "recipe/recipeform";
+    }
+
+    @PostMapping("/recipe")
+    public String saveOrUpdate(@ModelAttribute RecipeCommand command) {
+        RecipeCommand recipeCommand = recipeService.saveRecipeCommand(command);
+        return "redirect:/recipe/show/" + recipeCommand.getId();
     }
 
 }
