@@ -2,6 +2,7 @@ package dxy.springframework.adspringrecipeapp.converters;
 
 import dxy.springframework.adspringrecipeapp.commands.IngredientCommand;
 import dxy.springframework.adspringrecipeapp.domain.Ingredient;
+import dxy.springframework.adspringrecipeapp.domain.Recipe;
 import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
@@ -32,6 +33,12 @@ public class IngredientCommandToIngredient implements Converter<IngredientComman
         ingredient.setAmount(source.getAmount());
         ingredient.setDescription(source.getDescription());
         ingredient.setUom(uomConverter.convert(source.getUnitOfMeasure()));
+        if(source.getRecipeId()!=null){
+            Recipe recipe=new Recipe();
+            recipe.setId(source.getRecipeId());
+            recipe.addIngredient(ingredient);
+            ingredient.setRecipe(recipe);
+        }
         return ingredient;
     }
 }

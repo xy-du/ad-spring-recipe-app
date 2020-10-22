@@ -8,4 +8,5 @@ import dxy.springframework.adspringrecipeapp.commands.IngredientCommand;
  */
 public interface IngredientService {
     IngredientCommand findIngredientByIdAndRecipeId(Long ingredientId, Long recipeId);
+    IngredientCommand saveIngredientCommand(IngredientCommand ingredientCommand);
 }
