@@ -3,6 +3,7 @@ package dxy.springframework.adspringrecipeapp.controllers;
 import dxy.springframework.adspringrecipeapp.commands.RecipeCommand;
 import dxy.springframework.adspringrecipeapp.domain.Recipe;
 import dxy.springframework.adspringrecipeapp.services.RecipeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * @author AD
  * @date 2020/10/21
  */
+@Slf4j
 @Controller
 public class RecipeController {
 
@@ -46,5 +48,13 @@ public class RecipeController {
         RecipeCommand recipeCommand = recipeService.saveRecipeCommand(command);
         return "redirect:/recipe/show/" + recipeCommand.getId();
     }
+
+    @GetMapping("/recipe/{id}/delete")
+    public String deleteRecipeById(@PathVariable String id){
+        recipeService.deleteById(Long.valueOf(id));
+        log.debug("the deleted id is "+id);
+        return "redirect:/";
+    }
+
 
 }
