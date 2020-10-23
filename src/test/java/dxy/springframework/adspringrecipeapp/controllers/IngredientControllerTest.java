@@ -43,7 +43,7 @@ public class IngredientControllerTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        ingredientController = new IngredientController(recipeService,ingredientService,unitOfMeasureService);
+        ingredientController = new IngredientController(recipeService, ingredientService, unitOfMeasureService);
         mockMvc = MockMvcBuilders.standaloneSetup(ingredientController).build();
     }
 
@@ -66,10 +66,10 @@ public class IngredientControllerTest {
 
     @Test
     public void showIngredient() throws Exception {
-        IngredientCommand ingredientCommand=new IngredientCommand();
+        IngredientCommand ingredientCommand = new IngredientCommand();
         ingredientCommand.setId(1L);
 
-        when(ingredientService.findIngredientByIdAndRecipeId(anyLong(),anyLong())).thenReturn(ingredientCommand);
+        when(ingredientService.findIngredientByIdAndRecipeId(anyLong(), anyLong())).thenReturn(ingredientCommand);
 
         mockMvc.perform(get("/recipe/1/ingredient/2/show"))
                 .andExpect(status().isOk())
@@ -79,7 +79,7 @@ public class IngredientControllerTest {
 
     @Test
     public void updateIngredient() throws Exception {
-        when(ingredientService.findIngredientByIdAndRecipeId(anyLong(),anyLong())).thenReturn(new IngredientCommand());
+        when(ingredientService.findIngredientByIdAndRecipeId(anyLong(), anyLong())).thenReturn(new IngredientCommand());
         when(unitOfMeasureService.findAll()).thenReturn(new HashSet<>());
 
         mockMvc.perform(get("/recipe/1/ingredient/2/update"))
@@ -91,7 +91,7 @@ public class IngredientControllerTest {
 
     @Test
     public void saveOrUpdate() throws Exception {
-        IngredientCommand ingredientCommand=new IngredientCommand();
+        IngredientCommand ingredientCommand = new IngredientCommand();
         ingredientCommand.setId(1L);
         ingredientCommand.setRecipeId(1L);
 
@@ -121,6 +121,15 @@ public class IngredientControllerTest {
 
         verify(recipeService, times(1)).findRecipeCommandById(anyLong());
 
+    }
+
+    @Test
+    public void deleteIngredient() throws Exception {
+        mockMvc.perform(get("/recipe/1/ingredient/1/delete"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/recipe/1/ingredients"));
+
+        verify(ingredientService, times(1)).deleteIngredientByIdAndRecipeId(anyLong(), anyLong());
     }
 
 }
