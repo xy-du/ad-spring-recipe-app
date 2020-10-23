@@ -97,7 +97,7 @@ public class IngredientControllerTest {
 
         when(ingredientService.saveIngredientCommand(any())).thenReturn(ingredientCommand);
 
-        mockMvc.perform(post("/recipe/ingredient"))
+        mockMvc.perform(post("/recipe/1/ingredient"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/recipe/1/ingredient/1/show"));
     }
