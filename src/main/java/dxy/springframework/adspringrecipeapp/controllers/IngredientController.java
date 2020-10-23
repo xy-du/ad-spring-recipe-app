@@ -2,6 +2,7 @@ package dxy.springframework.adspringrecipeapp.controllers;
 
 import dxy.springframework.adspringrecipeapp.commands.IngredientCommand;
 import dxy.springframework.adspringrecipeapp.commands.RecipeCommand;
+import dxy.springframework.adspringrecipeapp.commands.UnitOfMeasureCommand;
 import dxy.springframework.adspringrecipeapp.services.IngredientService;
 import dxy.springframework.adspringrecipeapp.services.RecipeService;
 import dxy.springframework.adspringrecipeapp.services.UnitOfMeasureService;
@@ -65,5 +66,20 @@ public class IngredientController {
 
     }
 
+    @GetMapping("/recipe/{recipeId}/ingredient/new")
+    public String addNewIngredient(@PathVariable String recipeId, Model model) {
+        //make sure we have a good id value
+        RecipeCommand recipeCommand = recipeService.findRecipeCommandById(Long.valueOf(recipeId));
+        //todo raise exception if null
 
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId(Long.valueOf(recipeId));
+        model.addAttribute("ingredient", ingredientCommand);
+
+        ingredientCommand.setUnitOfMeasure(new UnitOfMeasureCommand());
+
+        model.addAttribute("uomList", unitOfMeasureService.findAll());
+
+        return "recipe/ingredient/ingredientform";
+    }
 }
