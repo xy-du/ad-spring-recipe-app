@@ -2,11 +2,14 @@ package dxy.springframework.adspringrecipeapp.controllers;
 
 import dxy.springframework.adspringrecipeapp.commands.RecipeCommand;
 import dxy.springframework.adspringrecipeapp.domain.Recipe;
+import dxy.springframework.adspringrecipeapp.exceptions.NotFoundException;
 import dxy.springframework.adspringrecipeapp.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author AD
@@ -56,5 +59,14 @@ public class RecipeController {
         return "redirect:/";
     }
 
+
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ModelAndView errorView(){
+        log.error("Handling Not Found Exception");
+        ModelAndView modelAndView=new ModelAndView();
+        modelAndView.setViewName("404error");
+        return modelAndView;
+    }
 
 }

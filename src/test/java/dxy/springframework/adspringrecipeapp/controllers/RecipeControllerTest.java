@@ -2,6 +2,7 @@ package dxy.springframework.adspringrecipeapp.controllers;
 
 import dxy.springframework.adspringrecipeapp.commands.RecipeCommand;
 import dxy.springframework.adspringrecipeapp.domain.Recipe;
+import dxy.springframework.adspringrecipeapp.exceptions.NotFoundException;
 import dxy.springframework.adspringrecipeapp.services.RecipeService;
 import org.hamcrest.Matchers;
 import org.junit.Before;
@@ -97,5 +98,13 @@ public class RecipeControllerTest {
 
         verify(recipeService, times(1)).deleteById(anyLong());
 
+    }
+
+    @Test
+    public void errorPageTest() throws Exception {
+        when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+        mockMvc.perform(get("/recipe/show/1"))
+                .andExpect(status().isNotFound())
+                .andExpect(view().name("404error"));
     }
 }

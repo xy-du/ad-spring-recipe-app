@@ -3,6 +3,7 @@ package dxy.springframework.adspringrecipeapp.services;
 import dxy.springframework.adspringrecipeapp.converters.RecipeCommandToRecipe;
 import dxy.springframework.adspringrecipeapp.converters.RecipeToRecipeCommand;
 import dxy.springframework.adspringrecipeapp.domain.Recipe;
+import dxy.springframework.adspringrecipeapp.exceptions.NotFoundException;
 import dxy.springframework.adspringrecipeapp.repositories.RecipeRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,30 +44,30 @@ public class RecipeServiceImplTest {
 
     @Test
     public void getRecipes() {
-        Recipe recipe=new Recipe();
+        Recipe recipe = new Recipe();
         recipe.setId(1L);
-        Set<Recipe> recipes=new HashSet<>();
+        Set<Recipe> recipes = new HashSet<>();
         recipes.add(recipe);
 
 
         //verify that when call getRecipes() from Service Layer, Repository Layer will do the work underneath
         when(recipeRepository.findAll()).thenReturn(recipes);
-        assertEquals(recipeService.getRecipes().size(),1);
+        assertEquals(recipeService.getRecipes().size(), 1);
 
         //verify that the findAll for Repository are only called once
-        verify(recipeRepository,times(1)).findAll();
+        verify(recipeRepository, times(1)).findAll();
     }
 
     @Test
-    public void findById(){
-        Recipe recipe=new Recipe();
+    public void findById() {
+        Recipe recipe = new Recipe();
         recipe.setId(1L);
 
-        Optional<Recipe> recipeOptional=Optional.of(recipe);
+        Optional<Recipe> recipeOptional = Optional.of(recipe);
 
         when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
 
-        Recipe returnedRecipe=recipeService.findById(1L);
+        Recipe returnedRecipe = recipeService.findById(1L);
 
         assertNotNull("Null recipe returned", returnedRecipe);
         verify(recipeRepository, times(1)).findById(anyLong());
@@ -75,8 +76,15 @@ public class RecipeServiceImplTest {
     }
 
     @Test
-    public void deleteById(){
+    public void deleteById() {
         recipeService.deleteById(anyLong());
-        verify(recipeRepository,times(1)).deleteById(anyLong());
+        verify(recipeRepository, times(1)).deleteById(anyLong());
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void NotFoundExceptionTest() {
+        Optional<Recipe> recipeOptional = Optional.empty();
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+        recipeService.findById(1L);
     }
 }
