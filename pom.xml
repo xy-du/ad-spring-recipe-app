@@ -52,12 +52,17 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate-validator.version}</version>
+        </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.webjars</groupId>-->
-<!--            <artifactId>bootstrap</artifactId>-->
-<!--            <version>4.5.3</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.webjars</groupId>-->
+        <!--            <artifactId>bootstrap</artifactId>-->
+        <!--            <version>4.5.3</version>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
@@ -73,10 +78,10 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
-<!--the plugin below is to make maven to run Integrated Test in the 'verify' lifeCycle.
-by default, maven only run unit test when,say,'package'. the Integrated Test, i.e. UnitOfMEasureRepositoryIT here, will
-not be ran.
--->
+            <!--the plugin below is to make maven to run Integrated Test in the 'verify' lifeCycle.
+            by default, maven only run unit test when,say,'package'. the Integrated Test, i.e. UnitOfMEasureRepositoryIT here, will
+            not be ran.
+            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>

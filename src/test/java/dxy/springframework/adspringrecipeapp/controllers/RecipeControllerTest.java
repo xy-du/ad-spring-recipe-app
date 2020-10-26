@@ -88,9 +88,23 @@ public class RecipeControllerTest {
 
         when(recipeService.saveRecipeCommand(any())).thenReturn(recipeCommand);
 
-        mockMvc.perform(post("/recipe"))
+        mockMvc.perform(post("/recipe")
+                .param("description", "csdcscd")
+                .param("directions", "csdcsdcsdcs"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/recipe/show/1"));
+    }
+
+    @Test
+    public void saveOrUpdateWithValidation() throws Exception {
+        RecipeCommand recipeCommand = new RecipeCommand();
+        recipeCommand.setId(1L);
+
+        when(recipeService.saveRecipeCommand(any())).thenReturn(recipeCommand);
+
+        mockMvc.perform(post("/recipe").param("id", ""))
+                .andExpect(status().isOk())
+                .andExpect(view().name("recipe/recipeform"));
     }
 
     @Test

@@ -4,9 +4,15 @@ import dxy.springframework.adspringrecipeapp.domain.Difficulty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.URL;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
+
 
 /**
  * Created by jt on 6/21/17.
@@ -16,13 +22,31 @@ import java.util.Set;
 @NoArgsConstructor
 public class RecipeCommand {
     private Long id;
+
+    @NotBlank
+    @Size(min = 3,max = 255)
     private String description;
+
+    @Min(1)
+    @Max(1000)
     private Integer prepTime;
+
+    @Min(1)
+    @Max(1000)
     private Integer cookTime;
+
+    @Min(1)
+    @Max(20)
     private Integer servings;
+
     private String source;
+
+    @URL
     private String url;
+
+    @NotBlank
     private String directions;
+
     private Byte[] image;
     private Set<IngredientCommand> ingredients = new HashSet<>();
     private Difficulty difficulty;
