@@ -68,12 +68,22 @@ public class RecipeController {
     // here on this method.
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ModelAndView errorView(Exception e) {
+    public ModelAndView errorView404(Exception e) {
         //add Exception parameter to tell spring pass it over in this method
         log.error("Handling Not Found Exception");
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("404error");
         modelAndView.addObject("exception",e);
+        return modelAndView;
+    }
+
+    @ExceptionHandler(NumberFormatException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ModelAndView errorView400(Exception e){
+        log.error("the Number Format Passed in is not right");
+        ModelAndView modelAndView=new ModelAndView();
+        modelAndView.addObject("exception",e);
+        modelAndView.setViewName("400error");
         return modelAndView;
     }
 
