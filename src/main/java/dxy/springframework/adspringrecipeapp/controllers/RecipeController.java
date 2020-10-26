@@ -68,10 +68,12 @@ public class RecipeController {
     // here on this method.
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ModelAndView errorView() {
+    public ModelAndView errorView(Exception e) {
+        //add Exception parameter to tell spring pass it over in this method
         log.error("Handling Not Found Exception");
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("404error");
+        modelAndView.addObject("exception",e);
         return modelAndView;
     }
 
