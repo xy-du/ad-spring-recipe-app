@@ -60,11 +60,17 @@ public class RecipeController {
     }
 
 
+    //the @ExceptionHandler here decide that this method will deal with the NotFoundException type of exception,
+    //and the @ResponseStatus here decide what http status code this method will return.
+    //Do note that, without this @ResponseStatus here to specify the status code. the client side won't get
+    //the Not_FOUND code  even thought it's written on the exception class itself already, since the code
+    // got overwritten here. so if you want the not_found code get returned, you have to specify the code
+    // here on this method.
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ModelAndView errorView(){
+    public ModelAndView errorView() {
         log.error("Handling Not Found Exception");
-        ModelAndView modelAndView=new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("404error");
         return modelAndView;
     }
