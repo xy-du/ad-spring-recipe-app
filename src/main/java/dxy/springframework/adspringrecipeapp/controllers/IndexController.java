@@ -24,6 +24,7 @@ public class IndexController {
     public String getIndexPage(Model model) {
         log.debug("controller---indexController---getIndexPage");
         model.addAttribute("recipes",recipeService.getRecipes());
+        log.info("CircleCI Test.Just make a push");
         return "index";
     }
 }
