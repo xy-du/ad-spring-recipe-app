@@ -5,7 +5,9 @@ import dxy.springframework.adspringrecipeapp.repositories.CategoryRepository;
 import dxy.springframework.adspringrecipeapp.repositories.RecipeRepository;
 import dxy.springframework.adspringrecipeapp.repositories.UnitOfMeasureRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Profile;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +23,8 @@ import java.util.Optional;
 
 @Component
 @Slf4j
-public class RecipeBootstrap implements CommandLineRunner {
+@Profile("default")  // this profile specification can be omitted
+public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
     private final RecipeRepository recipeRepository;
     private final CategoryRepository categoryRepository;
@@ -35,9 +38,9 @@ public class RecipeBootstrap implements CommandLineRunner {
 
     @Override
     @Transactional
-    public void run(String... args) throws Exception {
-        log.debug("bootstrap---RecipeBootStrap---run");
+    public void onApplicationEvent(ContextRefreshedEvent event) {
         recipeRepository.saveAll(getRecipes());
+        log.debug("Loading Bootstrap Data");
     }
 
     private List<Recipe> getRecipes() {
